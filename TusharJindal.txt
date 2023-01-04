@@ -1,0 +1,79 @@
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        //ENTER YOUR ROWS
+        int row=5;
+//        ENTER COLUMNS
+        int column=5;
+//        COLUMN TO BE SORTED WITH
+        int columnToSort=2;
+//        FOR CREATING ARRAY
+       int[][] myArray=create2DArray(row,column);
+//  PRINTING 2D ARRAY
+        print2DArray(myArray,row,column);
+
+//        sorting by column columnToSort without optimization using extra space
+        sortbyColumn(myArray,columnToSort);
+
+        //        sorting by column columnToSort with optimization
+//        NOTE PLEASE UNCOMMENT IT TO USE
+//        sortbyColumnOptimized(myArray,columnToSort);
+
+        System.out.println("AFTER SORTING");
+        print2DArray(myArray,row,column);
+    }
+
+    private static void sortbyColumn(int[][] arr, int i) {
+        int[] myArray=new int[arr.length];
+        for(int j=0;j<arr.length;j++){
+            myArray[j]=arr[j][i];
+        }
+        Arrays.sort(myArray);
+        for(int j=0;j<arr.length;j++){
+            arr[j][i]=myArray[j];
+        }
+    }
+
+    public static void sortbyColumnOptimized(int arr[][], int col)
+    {
+
+        Arrays.sort(arr, new Comparator<int[]>() {
+
+            @Override
+
+            public int compare(final int[] entry1,
+                               final int[] entry2) {
+
+                if (entry1[col] > entry2[col])
+                    return 1;
+                else
+                    return -1;
+            }
+        });
+    }
+
+    public static void print2DArray(int[][] myArray,int row,int column){
+        for(int r=0;r<row;r++){
+            for(int c=0;c<column;c++){
+                System.out.print(myArray[r][c] +" ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] create2DArray(int rows,int columns) {
+        Random rand = new Random();
+        int[][] myArray=new int[rows][columns];
+        for(int r=0;r<rows;r++){
+            for(int col=0;col<columns;col++){
+                myArray[r][col]= rand.nextInt(101);
+            }
+        }
+        return myArray;
+    }
+}
+
+
